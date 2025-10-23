@@ -1,4 +1,12 @@
-const floor=[]
+const floor=[];
+const character = document.getElementById("character");
+let topPos = 380;
+let leftPos = 300;
+const jumpHeight = 150;
+let blockposition=678;
+let backLeft;
+let backTop;
+let pos=609;
 
 function generateGrid() {
     const board = document.getElementById('grid');
@@ -15,29 +23,90 @@ function generateFloor() {
     }
 }
 
-function createCharacter(i) {
-    boxes[i].classList.add("char1");
-    boxes[i+1].classList.add("char2");
-    boxes[i+2].classList.add("char3");
-    boxes[i+40].classList.add("char4");
-    boxes[i+41].classList.add("char5");
-    boxes[i+42].classList.add("char6");
-    boxes[i+80].classList.add("char7");
-    boxes[i+81].classList.add("char8");
-    boxes[i+82].classList.add("char9");
-    boxes[i+120].classList.add("char10");
-    boxes[i+121].classList.add("char11");
-    boxes[i+122].classList.add("char12");
+function checkCollision() {
+  floor=[pos, pos-40, pos+40]
+  if (boxes[pos].classList.contains("floor")) {
+    alert("collision")
+  }
 }
 
-function runningMan(i) {
-    boxes[i].classList.add("runningman")
+function jump() {
+    topPos -= jumpHeight;
+    character.style.top = topPos + "px";
+    characterBackground();
+    checkCollision();
+    removeCharacterBackground();
+
+    setTimeout(() => {
+      topPos += jumpHeight;
+      character.style.top = topPos + "px";
+      characterBackground();
+      checkCollision();
+      removeCharacterBackground();
+    }, 400);
 }
 
-function moveCharacter() {
-    
+function shoot(){
+  alert("shot")
+}
+
+function createObstacle(i) {
+  boxes[i].classList.add("floor");
+  boxes[i+1].classList.add("floor");
+  boxes[i-40].classList.add("floor");
+  boxes[i-39].classList.add("floor");
+}
+
+function eraseObstacle(i) {
+  boxes[i].classList.remove("floor");
+  boxes[i+1].classList.remove("floor");
+  boxes[i-40].classList.remove("floor");
+  boxes[i-39].classList.remove("floor");
+}
+
+function movingObstacles() {
+  eraseObstacle(blockposition);
+  blockposition=blockposition-1;
+  if (blockposition%40==0) {
+    createObstacle(blockposition);
+    eraseObstacle(blockposition);
+    blockposition=678;
+  }
+  createObstacle(blockposition);
+}
+
+function characterBackground() {
+  backTop = Math.floor(topPos/30);
+  backLeft = Math.floor(leftPos/30);
+  pos = (backTop*40) + backLeft;
+  pos = pos+119;
+  console.log(pos)
+  boxes[pos].classList.add("characterback");
+  boxes[pos+40].classList.add("characterback");
+  boxes[pos-40].classList.add("characterback");
+}
+
+function removeCharacterBackground() {
+  backTop = Math.floor(topPos/30);
+  backLeft = Math.floor(leftPos/30);
+  pos = (backTop*40) + backLeft;
+  pos = pos+119;
+  boxes[pos].classList.remove("characterback");
+  boxes[pos+40].classList.remove("characterback");
+  boxes[pos-40].classList.remove("characterback");
 }
 
 generateGrid();
 generateFloor();
-runningMan(300);
+characterBackground();
+setInterval(movingObstacles,100)
+
+
+document.addEventListener("keydown", e => {
+  if (e.key === " ") {
+    jump();
+  } 
+  else if (e.key === "i") {
+    shoot();
+  }
+});

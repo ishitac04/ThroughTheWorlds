@@ -12,3 +12,10 @@ Level 1:
 - Maybe like escape from somewhere? e.g. secret lab/ forest house
 - Decisions in story?
 
+TO DO LIST:
+- collision
+- add floating cubes
+- add gems
+- add sound effects
+- add storyline?
+- add level screen
