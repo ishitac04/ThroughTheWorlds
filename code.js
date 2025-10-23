@@ -9,6 +9,7 @@ let backTop;
 let pos=609;
 
 function generateGrid() {
+  //creates the main grid for the game
     const board = document.getElementById('grid');
     for (i=0; i<800; i++) {
         const square = document.createElement('div')
@@ -18,19 +19,25 @@ function generateGrid() {
 }
 
 function generateFloor() {
+  //adds floor pieces to the bottom of the board
     for (i=680; i<800; i++) {
         boxes[i].classList.add("floor")
     }
 }
 
 function checkCollision() {
-  floor=[pos, pos-40, pos+40]
+  //checks if a block behind the character has a floor piece, and alerts if there is
   if (boxes[pos].classList.contains("floor")) {
+    alert("collision");
+  } else if (boxes[pos+40].classList.contains("floor")) {
+    alert("collision");
+  } else if (boxes[pos-40].classList.contains("floor")) {
     alert("collision")
   }
 }
 
 function jump() {
+    //makes the character jump upwards, waits and then falls back down
     topPos -= jumpHeight;
     character.style.top = topPos + "px";
     characterBackground();
@@ -47,17 +54,26 @@ function jump() {
 }
 
 function shoot(){
+  //will make this more detailed to create actual shooting logic
   alert("shot")
 }
 
 function createObstacle(i) {
+  //creates the obstacle on the floor
   boxes[i].classList.add("floor");
   boxes[i+1].classList.add("floor");
   boxes[i-40].classList.add("floor");
   boxes[i-39].classList.add("floor");
+
+  let a=Math.floor(Math.random()*3)
+  if (a==1) {
+    boxes[i-200].classList.add("floor");
+    boxes[i-199].classList.add("floor");
+  }
 }
 
 function eraseObstacle(i) {
+  //removes the old obstacle so that it appears to move rather than just grow
   boxes[i].classList.remove("floor");
   boxes[i+1].classList.remove("floor");
   boxes[i-40].classList.remove("floor");
@@ -65,6 +81,7 @@ function eraseObstacle(i) {
 }
 
 function movingObstacles() {
+  //makes the obstacle move to create the sense that the character is moving forward
   eraseObstacle(blockposition);
   blockposition=blockposition-1;
   if (blockposition%40==0) {
@@ -76,6 +93,7 @@ function movingObstacles() {
 }
 
 function characterBackground() {
+  //creates a way to track what boxes the character covers
   backTop = Math.floor(topPos/30);
   backLeft = Math.floor(leftPos/30);
   pos = (backTop*40) + backLeft;
@@ -87,6 +105,7 @@ function characterBackground() {
 }
 
 function removeCharacterBackground() {
+  //removes the character backing so that collisions aren't detected when the character moves
   backTop = Math.floor(topPos/30);
   backLeft = Math.floor(leftPos/30);
   pos = (backTop*40) + backLeft;
@@ -99,9 +118,10 @@ function removeCharacterBackground() {
 generateGrid();
 generateFloor();
 characterBackground();
+//makes the moving obstacle every 100 milliseconds
 setInterval(movingObstacles,100)
 
-
+//detects when keys are pressed to shoot or jump
 document.addEventListener("keydown", e => {
   if (e.key === " ") {
     jump();
