@@ -8,6 +8,7 @@ let blockposition2=473;
 let backLeft;
 let backTop;
 let pos=609;
+let lives=3;
 
 function generateGrid() {
   //creates the main grid for the game
@@ -53,8 +54,7 @@ function checkCollision() {
       boxes[posNow + 40].classList.contains("floor") ||
       boxes[posNow - 40].classList.contains("floor")
     ) {
-      alert("collision!");
-      location.reload();
+      loseLife();
     }
   }, 4000);
 }
@@ -67,9 +67,9 @@ function jump() {
     checkCollision();
 
     setTimeout(() => {
-      topPos += jumpHeight;
-      character.style.top = topPos + "px";
-      checkCollision();
+        topPos += jumpHeight;
+        character.style.top = topPos + "px";
+        checkCollision();
     }, 800);
 }
 
@@ -77,6 +77,16 @@ function shoot(){
   //will make this more detailed to create actual shooting logic
   alert("shot")
 }
+
+function loseLife() {
+    if (lives > 0) {
+        const heart = document.getElementById(`heart${lives}`);
+        heart.classList.add("lost")
+        lives--;
+    } else {
+      alert("Game Over!");
+    }
+  }
 
 function createObstacle(i) {
   //creates the obstacle on the floor
@@ -154,6 +164,7 @@ function removeCharacterBackground() {
   boxes[pos-40].classList.remove("characterback");
 }
 
+setInterval(gamestart.style.display = "none",1000);
 generateGrid();
 generateFloor();
 //makes the moving obstacle every 100 milliseconds

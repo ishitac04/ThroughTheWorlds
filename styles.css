@@ -1,5 +1,5 @@
 body {
-    background-image: url("buildings.gif");
+    background-color: #000000 ;
     background-size: 100%;
     display: flex;
     flex-direction: center;
@@ -33,7 +33,7 @@ body {
     position: absolute;
     top: 0;
     font-size: xxx-large;
-    z-index: 999;
+    z-index: 10;
     background: #32a5cf;
     padding: 10px;
     border: 4px solid #000000;
@@ -82,3 +82,36 @@ body {
     background-size: cover;
 }
 
+#lives {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    gap: 5px;
+    z-index: 20;
+  }
+  
+.heart {
+    width: 70px;
+    height: 70px;
+    background-image: url("heart.png");
+    background-size: cover;
+}
+
+.heart.lost {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+  
+
+#gamestart {
+    position: absolute;
+    width: 1200px;
+    height: 550px;
+    background-color: #32a5cf;
+    border: 5px solid #705f5f;
+    background-size: cover;
+    top: 20;
+    left: 0px;
+    z-index: 40;
+}
