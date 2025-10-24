@@ -26,30 +26,39 @@ function generateFloor() {
 }
 
 function checkCollision() {
-  //checks if a block behind the character has a floor piece, and alerts if there is
-  if (boxes[pos].classList.contains("floor")) {
-    alert("collision");
-  } else if (boxes[pos+40].classList.contains("floor")) {
-    alert("collision");
-  } else if (boxes[pos-40].classList.contains("floor")) {
-    alert("collision")
-  }
+  //makes the obstacle move to create the sense that the character is
+  setTimeout(() => {
+    const backTop = Math.floor(topPos / 30);
+    const backLeft = Math.floor(leftPos / 30);
+    const posNow = (backTop * 40) + backLeft + 119;
+
+    boxes.forEach(b => b.classList.remove("characterback"));
+    boxes[posNow].classList.add("characterback");
+    boxes[posNow + 40].classList.add("characterback");
+    boxes[posNow - 40].classList.add("characterback");
+
+    if (
+      boxes[posNow].classList.contains("floor") ||
+      boxes[posNow + 40].classList.contains("floor") ||
+      boxes[posNow - 40].classList.contains("floor")
+    ) {
+      alert("collision!");
+      location.reload();
+    }
+  }, 2000);
 }
+
 
 function jump() {
     //makes the character jump upwards, waits and then falls back down
     topPos -= jumpHeight;
     character.style.top = topPos + "px";
-    characterBackground();
     checkCollision();
-    removeCharacterBackground();
 
     setTimeout(() => {
       topPos += jumpHeight;
       character.style.top = topPos + "px";
-      characterBackground();
       checkCollision();
-      removeCharacterBackground();
     }, 400);
 }
 
@@ -90,6 +99,7 @@ function movingObstacles() {
     blockposition=678;
   }
   createObstacle(blockposition);
+  checkCollision();
 }
 
 function characterBackground() {
@@ -98,10 +108,10 @@ function characterBackground() {
   backLeft = Math.floor(leftPos/30);
   pos = (backTop*40) + backLeft;
   pos = pos+119;
-  console.log(pos)
   boxes[pos].classList.add("characterback");
   boxes[pos+40].classList.add("characterback");
   boxes[pos-40].classList.add("characterback");
+  console.log(pos)
 }
 
 function removeCharacterBackground() {
@@ -117,9 +127,8 @@ function removeCharacterBackground() {
 
 generateGrid();
 generateFloor();
-characterBackground();
 //makes the moving obstacle every 100 milliseconds
-setInterval(movingObstacles,100)
+//setInterval(movingObstacles,100)
 
 //detects when keys are pressed to shoot or jump
 document.addEventListener("keydown", e => {
