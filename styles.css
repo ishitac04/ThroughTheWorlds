@@ -61,12 +61,24 @@ body {
     left: 300px;
     z-index: 10;
     transition: top 0.5s ease;
+}
 
 #border {
     position: relative;
-    display: inline-block; }
+    display: inline-block; 
 }
 
 .characterback {
+    background-color: #000000;
     background-size: 100%;
 }
+
+.robot1 {
+    background-image: url("robot2.webp");
+    background-size: cover;
+}
+.robot2 {
+    background-image: url("robot1.webp");
+    background-size: cover;
+}
+

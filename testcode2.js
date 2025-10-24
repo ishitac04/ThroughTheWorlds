@@ -4,7 +4,7 @@ let topPos = 380;
 let leftPos = 300;
 const jumpHeight = 150;
 let blockposition=678;
-let blockposition2=678
+let blockposition2=473;
 let backLeft;
 let backTop;
 let pos=609;
@@ -26,12 +26,22 @@ function generateFloor() {
     }
 }
 
+function generateFloatingPlatforms() {
+  for (let i = 0; i < 5; i++) {
+    let start = 400 + Math.floor(Math.random() * 200);
+    boxes[start].classList.add("floor");
+    boxes[start + 1].classList.add("floor");
+    boxes[start + 2].classList.add("floor");
+  }
+}
+
+
 function checkCollision() {
   //makes the obstacle move to create the sense that the character is
   setTimeout(() => {
     const backTop = Math.floor(topPos / 30);
     const backLeft = Math.floor(leftPos / 30);
-    const posNow = (backTop * 40) + backLeft + 119;
+    const posNow = (backTop * 40) + backLeft + 121;
 
     boxes.forEach(b => b.classList.remove("characterback"));
     boxes[posNow].classList.add("characterback");
@@ -76,6 +86,14 @@ function createObstacle(i) {
   boxes[i-39].classList.add("floor");
 }
 
+function createObstacle2(i) {
+  //creates the obstacle on the floor
+  boxes[i].classList.add("floor");
+  boxes[i-40].classList.add("floor");
+  boxes[i+1].classList.add("floor");
+  boxes[i-39].classList.add("floor");
+}
+
 function eraseObstacle(i) {
   //removes the old obstacle so that it appears to move rather than just grow
   boxes[i].classList.remove("floor");
@@ -84,16 +102,32 @@ function eraseObstacle(i) {
   boxes[i-39].classList.remove("floor");
 }
 
+function eraseObstacle2(i) {
+  //removes the old obstacle so that it appears to move rather than just grow
+  boxes[i].classList.remove("floor");
+  boxes[i-40].classList.remove("floor");
+  boxes[i+1].classList.remove("floor");
+  boxes[i-39].classList.remove("floor");
+}
+
 function movingObstacles() {
   //makes the obstacle move to create the sense that the character is moving forward
   eraseObstacle(blockposition);
+  eraseObstacle2(blockposition2);
   blockposition=blockposition-1;
+  blockposition2=blockposition2-1;
   if (blockposition%40==0) {
     createObstacle(blockposition);
     eraseObstacle(blockposition);
     blockposition=678;
   }
+  if (blockposition2%40==0) {
+    createObstacle(blockposition2);
+    eraseObstacle(blockposition2);
+    blockposition2=473;
+  }
   createObstacle(blockposition);
+  createObstacle2(blockposition2);
   checkCollision();
 }
 
