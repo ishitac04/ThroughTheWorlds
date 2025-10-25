@@ -15,6 +15,7 @@ let shot=document.getElementById("shot");
 let gemcollected=document.getElementById("sparkle");
 const score=document.getElementById("score");
 let numscore=0;
+let gemId = 0;
 
 function generateGrid() {
   //creates the main grid for the game
@@ -51,6 +52,9 @@ function checkCollision() {
       boxes[posNow - 40].classList.contains("floor")
     ) {
       loseLife();
+      numscore=0;
+      console.log(numscore);
+      score.textContent="Score: "+numscore;
     } else if (
       boxes[posNow].classList.contains("gem") ||
       boxes[posNow + 40].classList.contains("gem") ||
@@ -60,13 +64,14 @@ function checkCollision() {
         boxes[gempos].classList.remove("gem");
         disappear=1;
         numscore=numscore+1;
-        console.log();
+        console.log(numscore);
         score.textContent="Score: "+numscore;
     }
   }, 4000);
 }
 
 function generateGems() {
+  gemId=gemId+1;
   disappear=0;
   a=Math.floor(Math.random()*5);
   gempos=680-(a*40);
@@ -77,12 +82,31 @@ function generateGems() {
   return gempos;
 }
 
+function attachCharacterToBack() {
+  const backBox = document.querySelector(".characterback");
+  if (!backBox) return;
+
+  const boxRect = backBox.getBoundingClientRect();
+  const gridRect = document.getElementById("grid").getBoundingClientRect();
+
+  let top = boxRect.top - gridRect.top;
+  let left = boxRect.left - gridRect.left;
+  top=top-50
+  left=left-10
+
+  character.style.top = top + "px";
+  character.style.left = left + "px";
+}
+
+
 function jump() {
   //makes the character jump upwards, waits and then falls back down
   let jumpUp = true;
   const jumpSpeed = 50;
   const step = 10; 
   const maxJump = 380 - jumpHeight;
+
+  character.style.transition = "top 0.1s ease-out"; 
 
   let jumpInterval = setInterval(() => {
     if (jumpUp) {
@@ -94,10 +118,14 @@ function jump() {
         topPos = 380;
         clearInterval(jumpInterval);
         isJumping = false;
+        character.style.transition = "";
       }
     }
-    character.style.top = (topPos) + "px";
+
     checkCollision();
+
+    const visualOffset = (jumpUp ? -20 : 0);
+    character.style.top = (topPos + visualOffset) + "px";
   }, jumpSpeed);
 }
 
@@ -117,8 +145,14 @@ function loseLife() {
         blockposition=678;
         blockposition2=473;
     } else {
-      alert("GAME OVER!");
-      location.reload();
+      clearInterval(movingGame);
+      document.getElementById("gameover").style.display = "block";
+      document.getElementById("character").style.display = "none";
+      bgmusic.pause()
+      const heart = document.getElementById(`heart${lives}`);
+      heart.classList.add("lost")
+      lives--;
+      lostlife.play();
     }
 }
 
@@ -222,9 +256,13 @@ function removeCharacterBackground() {
 
 generateGrid();
 generateFloor();
+boxes[609].classList.add("characterback");
+boxes[649].classList.add("characterback");
+boxes[569].classList.add("characterback");
 let gem=generateGems();
 //makes the moving obstacle every 100 milliseconds
-setInterval(movingObstacles,100)
+setInterval(attachCharacterToBack,50)
+movingGame=setInterval(movingObstacles,100)
 
 //detects when keys are pressed to shoot or jump
 document.addEventListener("keydown", e => {
@@ -236,5 +274,3 @@ document.addEventListener("keydown", e => {
     shoot();
   }
 });
-
-

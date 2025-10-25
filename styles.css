@@ -1,5 +1,5 @@
 body {
-    background-color: #000000 ;
+    background-image: url("space.gif") ;
     background-size: 100%;
     display: flex;
     flex-direction: center;
@@ -70,7 +70,7 @@ body {
 }
 
 .characterback {
-    background-color: #ffffff;
+    background-color: #000000;
     background-size: 100%;
 }
 
@@ -119,7 +119,8 @@ body {
 }
 
 .gem {
-    background-color: red;
+    background-image: url("gem.png");
+    background-size: 100%;
 }
 
 #score {
@@ -135,5 +136,16 @@ body {
     border: 2px solid #000;
     border-radius: 8px;
     font-weight: bold;
-  }
-  
+}
+
+#gameover {
+    position: absolute;
+    width: 600px;
+    height: 500px;
+    background-image: url("gameover.png");
+    background-size: cover;
+    top: 90;
+    left: 265px;
+    z-index: 40;
+    display: none;
+}
