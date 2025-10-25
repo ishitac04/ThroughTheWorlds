@@ -13,6 +13,8 @@ let bgmusic = document.getElementById("bgmusic");
 let lostlife = document.getElementById("lostlife");
 let shot=document.getElementById("shot");
 let gemcollected=document.getElementById("sparkle");
+const score=document.getElementById("score");
+let numscore=0;
 
 function generateGrid() {
   //creates the main grid for the game
@@ -36,7 +38,7 @@ function checkCollision() {
   setTimeout(() => {
     const backTop = Math.floor(topPos / 30);
     const backLeft = Math.floor(leftPos / 30);
-    const posNow = (backTop * 40) + backLeft + 121;
+    const posNow = (backTop * 40) + backLeft + 122;
 
     boxes.forEach(b => b.classList.remove("characterback"));
     boxes[posNow].classList.add("characterback");
@@ -57,6 +59,9 @@ function checkCollision() {
         gemcollected.play();
         boxes[gempos].classList.remove("gem");
         disappear=1;
+        numscore=numscore+1;
+        console.log();
+        score.textContent="Score: "+numscore;
     }
   }, 4000);
 }
@@ -73,16 +78,27 @@ function generateGems() {
 }
 
 function jump() {
-    //makes the character jump upwards, waits and then falls back down
-    topPos -= jumpHeight;
-    character.style.top = topPos + "px";
-    checkCollision();
+  //makes the character jump upwards, waits and then falls back down
+  let jumpUp = true;
+  const jumpSpeed = 50;
+  const step = 10; 
+  const maxJump = 380 - jumpHeight;
 
-    setTimeout(() => {
-        topPos += jumpHeight;
-        character.style.top = topPos + "px";
-        checkCollision();
-    }, 800);
+  let jumpInterval = setInterval(() => {
+    if (jumpUp) {
+      topPos -= step;
+      if (topPos <= maxJump) jumpUp = false;
+    } else {
+      topPos += step;
+      if (topPos >= 380) {
+        topPos = 380;
+        clearInterval(jumpInterval);
+        isJumping = false;
+      }
+    }
+    character.style.top = (topPos) + "px";
+    checkCollision();
+  }, jumpSpeed);
 }
 
 function shoot(){
@@ -204,7 +220,6 @@ function removeCharacterBackground() {
   boxes[pos-40].classList.remove("characterback");
 }
 
-setInterval(gamestart.style.display = "none",1000);
 generateGrid();
 generateFloor();
 let gem=generateGems();
