@@ -147,6 +147,7 @@ function loseLife() {
     } else {
       clearInterval(movingGame);
       document.getElementById("gameover").style.display = "block";
+      document.getElementById("restart").style.display = "block";
       document.getElementById("character").style.display = "none";
       bgmusic.pause()
       const heart = document.getElementById(`heart${lives}`);
@@ -202,14 +203,42 @@ function eraseGem(i) {
   boxes[i].classList.remove("gem");
 }
 
+function createRobot(i) {
+  boxes[i-39].classList.add("robot1");
+  boxes[i-1].classList.add("floor")
+  boxes[i+1].classList.add("robot2");
+  boxes[i+41].classList.add("robot3");
+  boxes[i-38].classList.add("robot4");
+  boxes[i+2].classList.add("robot5");
+  boxes[i+42].classList.add("robot6");
+  boxes[i-37].classList.add("robot7");
+  boxes[i+3].classList.add("robot8");
+  boxes[i+43].classList.add("robot9");
+}
+
+function eraseRobot(i) {
+  boxes[i-39].classList.remove("robot1");
+  boxes[i-1].classList.remove("floor")
+  boxes[i+1].classList.remove("robot2");
+  boxes[i+41].classList.remove("robot3");
+  boxes[i-38].classList.remove("robot4");
+  boxes[i+2].classList.remove("robot5");
+  boxes[i+42].classList.remove("robot6");
+  boxes[i-37].classList.remove("robot7");
+  boxes[i+3].classList.remove("robot8");
+  boxes[i+43].classList.remove("robot9");
+}
+
 function movingObstacles() {
   //makes the obstacle move to create the sense that the character is moving forward
   eraseGem(gem);
   eraseObstacle(blockposition);
   eraseObstacle2(blockposition2);
+  eraseRobot(blockposition);
   gem=gem-1;
   blockposition=blockposition-1;
   blockposition2=blockposition2-1;
+  robotposition=blockposition+1;
   if (blockposition%40==0) {
     createObstacle(blockposition);
     eraseObstacle(blockposition);
@@ -259,10 +288,11 @@ generateFloor();
 boxes[609].classList.add("characterback");
 boxes[649].classList.add("characterback");
 boxes[569].classList.add("characterback");
+
 let gem=generateGems();
 //makes the moving obstacle every 100 milliseconds
-setInterval(attachCharacterToBack,50)
-movingGame=setInterval(movingObstacles,100)
+setInterval(attachCharacterToBack,50);
+movingGame=setInterval(movingObstacles,100);
 
 //detects when keys are pressed to shoot or jump
 document.addEventListener("keydown", e => {

@@ -1,0 +1,35 @@
+body {
+    background-image: url("space.gif") ;
+    background-size: 100%;
+    display: flex;
+    flex-direction: center;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 100vh;
+    margin-top:0;
+    font-size: x-large;
+}
+
+#levels {
+    position: absolute;
+    width: 1200px;
+    height: 550px;
+    background-color: black;
+    border: 5px solid #ffffff;
+    background-size: cover;
+    top: 20;
+    left: 0px;
+    z-index: 40;
+    display: none;
+}
+
+.levelbox {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background-color: aquamarine;
+    border: 5px solid #ffffff;
+    background-size: cover;
+    z-index: 40;
+    display: none;
+}

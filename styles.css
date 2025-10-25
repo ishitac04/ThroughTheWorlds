@@ -39,10 +39,11 @@ body {
     padding: 10px;
     border: 4px solid #000000;
     border-radius: 15%;
+    display: none;
 }
 
 .floor {
-    background-color: rgb(25, 94, 134);
+    background-image: url("metal.webp");
     background-size: 100%;
     border: 5px solid #000000
 }
@@ -74,15 +75,44 @@ body {
     background-size: 100%;
 }
 
+#robot {
 .robot1 {
-    background-image: url("robot2.webp");
+    background-image: url("00.png");
     background-size: cover;
 }
 .robot2 {
-    background-image: url("robot1.webp");
+    background-image: url("01.png");
     background-size: cover;
 }
-
+.robot3 {
+    background-image: url("02.png");
+    background-size: cover;
+}
+.robot4 {
+    background-image: url("10.png");
+    background-size: cover;
+}
+.robot5 {
+    background-image: url("11.png");
+    background-size: cover;
+}
+.robot6 {
+    background-image: url("12.png");
+    background-size: cover;
+}
+.robot7 {
+    background-image: url("20.png");
+    background-size: cover;
+}
+.robot8 {
+    background-image: url("21.png");
+    background-size: cover;
+}
+.robot9 {
+    background-image: url("22.png");
+    background-size: cover;
+}
+}
 #lives {
     position: absolute;
     top: 10px;
@@ -146,6 +176,18 @@ body {
     background-size: cover;
     top: 90;
     left: 265px;
+    z-index: 40;
+    display: none;
+}
+
+#restart {
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    background-image: url("restart.png");
+    background-size: cover;
+    top: 450px;
+    right: 10px;
     z-index: 40;
     display: none;
 }
