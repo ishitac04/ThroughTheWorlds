@@ -9,6 +9,10 @@ let backLeft;
 let backTop;
 let pos=609;
 let lives=3;
+let bgmusic = document.getElementById("bgmusic");
+let lostlife = document.getElementById("lostlife");
+let shot=document.getElementById("shot");
+let gemcollected=document.getElementById("sparkle");
 
 function generateGrid() {
   //creates the main grid for the game
@@ -26,16 +30,6 @@ function generateFloor() {
         boxes[i].classList.add("floor")
     }
 }
-
-function generateFloatingPlatforms() {
-  for (let i = 0; i < 5; i++) {
-    let start = 400 + Math.floor(Math.random() * 200);
-    boxes[start].classList.add("floor");
-    boxes[start + 1].classList.add("floor");
-    boxes[start + 2].classList.add("floor");
-  }
-}
-
 
 function checkCollision() {
   //makes the obstacle move to create the sense that the character is
@@ -55,10 +49,28 @@ function checkCollision() {
       boxes[posNow - 40].classList.contains("floor")
     ) {
       loseLife();
+    } else if (
+      boxes[posNow].classList.contains("gem") ||
+      boxes[posNow + 40].classList.contains("gem") ||
+      boxes[posNow - 40].classList.contains("gem")
+    ) { 
+        gemcollected.play();
+        boxes[gempos].classList.remove("gem");
+        disappear=1;
     }
   }, 4000);
 }
 
+function generateGems() {
+  disappear=0;
+  a=Math.floor(Math.random()*5);
+  gempos=680-(a*40);
+  while (boxes[gempos].classList.contains("floor") || boxes[gempos-1].classList.contains("floor") || boxes[gempos+1].classList.contains("floor")) {
+    a=Math.floor(Math.random()*5);
+  gempos=680-(a*40);
+  }
+  return gempos;
+}
 
 function jump() {
     //makes the character jump upwards, waits and then falls back down
@@ -79,14 +91,20 @@ function shoot(){
 }
 
 function loseLife() {
-    if (lives > 0) {
+    if (lives > 1) {
         const heart = document.getElementById(`heart${lives}`);
         heart.classList.add("lost")
         lives--;
+        lostlife.play();
+        eraseObstacle(blockposition);
+        eraseObstacle2(blockposition2);
+        blockposition=678;
+        blockposition2=473;
     } else {
-      alert("Game Over!");
+      alert("GAME OVER!");
+      location.reload();
     }
-  }
+}
 
 function createObstacle(i) {
   //creates the obstacle on the floor
@@ -94,6 +112,16 @@ function createObstacle(i) {
   boxes[i+1].classList.add("floor");
   boxes[i-40].classList.add("floor");
   boxes[i-39].classList.add("floor");
+}
+
+function createGem(i) {
+  boxes[i].classList.add("gem");
+}
+
+function moveGem() {
+  boxes[a].classList.remove("gem");
+  a=a-1;
+  boxes[a].classList.add("gem");
 }
 
 function createObstacle2(i) {
@@ -120,10 +148,16 @@ function eraseObstacle2(i) {
   boxes[i-39].classList.remove("floor");
 }
 
+function eraseGem(i) {
+  boxes[i].classList.remove("gem");
+}
+
 function movingObstacles() {
   //makes the obstacle move to create the sense that the character is moving forward
+  eraseGem(gem);
   eraseObstacle(blockposition);
   eraseObstacle2(blockposition2);
+  gem=gem-1;
   blockposition=blockposition-1;
   blockposition2=blockposition2-1;
   if (blockposition%40==0) {
@@ -136,8 +170,14 @@ function movingObstacles() {
     eraseObstacle(blockposition2);
     blockposition2=473;
   }
+  if (gem%40==0 || disappear==1) {
+    createGem(gem);
+    eraseGem(gem);
+    gem=generateGems();
+  }
   createObstacle(blockposition);
   createObstacle2(blockposition2);
+  createGem(gem);
   checkCollision();
 }
 
@@ -167,15 +207,19 @@ function removeCharacterBackground() {
 setInterval(gamestart.style.display = "none",1000);
 generateGrid();
 generateFloor();
+let gem=generateGems();
 //makes the moving obstacle every 100 milliseconds
 setInterval(movingObstacles,100)
 
 //detects when keys are pressed to shoot or jump
 document.addEventListener("keydown", e => {
   if (e.key === " ") {
+    bgmusic.play()
     jump();
   } 
   else if (e.key === "i") {
     shoot();
   }
 });
+
+

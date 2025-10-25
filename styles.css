@@ -115,3 +115,7 @@ body {
     left: 0px;
     z-index: 40;
 }
+
+.gem {
+    background-color: red;
+}
