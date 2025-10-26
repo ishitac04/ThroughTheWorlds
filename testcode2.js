@@ -17,6 +17,9 @@ const score=document.getElementById("score");
 let numscore=0;
 let gemId = 0;
 let startPortal=658;
+let health = 100;
+const healthbar = document.getElementById("healthbar");
+let bulletposition=608;
 
 function generateGrid() {
   //creates the main grid for the game
@@ -36,17 +39,17 @@ function generateFloor() {
 }
 
 function generatePortal(i) {
-  boxes[i].classList.add("floor");
-  boxes[i-40].classList.add("floor");
-  boxes[i-80].classList.add("floor");
-  boxes[i-120].classList.add("floor");
+  boxes[i].classList.add("portal");
+  boxes[i-40].classList.add("portal");
+  boxes[i-80].classList.add("portal");
+  boxes[i-120].classList.add("portal");
 }
 
 function erasePortal(i) {
-  boxes[i].classList.remove("floor");
-  boxes[i-40].classList.remove("floor");
-  boxes[i-80].classList.remove("floor");
-  boxes[i-120].classList.remove("floor");
+  boxes[i].classList.remove("portal");
+  boxes[i-40].classList.remove("portal");
+  boxes[i-80].classList.remove("portal");
+  boxes[i-120].classList.remove("portal");
 }
 
 function checkCollision() {
@@ -76,6 +79,7 @@ function checkCollision() {
       boxes[posNow - 40].classList.contains("gem") ||
       boxes[posNow - 80].classList.contains("gem")
     ) { 
+        health=health+20;
         gemcollected.play();
         document.body.style.filter = "brightness(10)";
         setTimeout(() => document.body.style.filter = "", 150);
@@ -150,10 +154,19 @@ function jump() {
   }, jumpSpeed);
 }
 
-function shoot(){
-  //will make this more detailed to create actual shooting logic
-  alert("shot")
+function shoot() {
+    const bulletinterval = setInterval(() => {
+    boxes[bulletposition].classList.remove("bullet");
+    bulletposition += 1;
+    if (bulletposition%40==0 || boxes[bulletposition].classList.contains("floor")) {
+      clearInterval(bulletinterval);
+      bulletposition=575;
+      return;
+    }
+    boxes[bulletposition].classList.add("bullet");
+    }, 100);
 }
+  
 
 function loseLife() {
     if (lives > 1) {
@@ -161,6 +174,7 @@ function loseLife() {
         heart.classList.add("lost")
         lives--;
         lostlife.play();
+        health=100; 
         screenShake();
         eraseObstacle(blockposition);
         eraseObstacle2(blockposition2);
@@ -269,6 +283,7 @@ function movingObstacles() {
   blockposition=blockposition-1;
   blockposition2=blockposition2-1;
   robotposition=blockposition+1;
+  startPortal=startPortal-1;
   if (blockposition%40==0) {
     createObstacle(blockposition);
     eraseObstacle(blockposition);
@@ -283,6 +298,10 @@ function movingObstacles() {
     createGem(gem);
     eraseGem(gem);
     gem=generateGems();
+  }
+  if (startPortal%40==0) {
+    document.getElementById("portal").style.display = "none";
+    startPortal=startPortal+1;
   }
   createObstacle(blockposition);
   createObstacle2(blockposition2);
@@ -319,6 +338,16 @@ boxes[609].classList.add("characterback");
 boxes[649].classList.add("characterback");
 boxes[569].classList.add("characterback");
 
+
+setInterval(() => {
+  if (health > 0) {
+    health = health - 10;
+    healthbar.style.height = health + "%";
+  } else {
+    loseLife();
+    health=100;
+  }
+}, 1000);
 let gem=generateGems();
 //makes the moving obstacle every 100 milliseconds
 setInterval(attachCharacterToBack,50);
@@ -331,6 +360,8 @@ document.addEventListener("keydown", e => {
     jump();
   } 
   else if (e.key === "i") {
+    let bulletTop = topPos + 15; // tweak for vertical alignment
+    let bulletLeft = leftPos + 30;
     shoot();
   }
 });

@@ -19,7 +19,8 @@ TO DO LIST:
 - add sound effects
 - add storyline?
 - add level screen
-- robots with bullets and health bar
+- robots with bullets
+- energy bar?
 
 Level 1:
 space
