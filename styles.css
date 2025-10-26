@@ -138,13 +138,15 @@ body {
     position: absolute;
     width: 1200px;
     height: 550px;
-    background-color: #32a5cf;
-    border: 5px solid #705f5f;
+    background-image: url("cover.png");
+    background-size: 100%;
+    border: 5px solid #ffffff;
     background-size: cover;
+    border-radius: 30px;
     top: 20;
     left: 0px;
     z-index: 40;
-    display: none;
+    display: block;
 }
 
 .gem {

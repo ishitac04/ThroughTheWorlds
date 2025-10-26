@@ -23,6 +23,9 @@ let bulletposition=608;
 let hit=0;
 let shouldrobot=0;
 const robotpieces = ["robot1", "robot2", "robot3", "robot4", "robot5", "robot6", "robot7", "robot8", "robot9"];
+let gameStart=0;
+let gemsCollected=[];
+
 
 function generateGrid() {
   //creates the main grid for the game
@@ -93,18 +96,28 @@ function checkCollision() {
       boxes[posNow - 40].classList.contains("gem") ||
       boxes[posNow - 80].classList.contains("gem")
     ) { 
+
+      if (!gemsCollected.includes(gemId)) {
+        gemsCollected.push(gemId);
         health=health+20;
-        gemcollected.play();
-        document.body.style.filter = "brightness(10)";
-        setTimeout(() => document.body.style.filter = "", 150);
-        boxes[gempos].classList.remove("gem");
-        disappear=1;
-        numscore=numscore+1;
-        console.log(numscore);
-        score.textContent="Score: "+numscore;
-        if (numscore==15) {
-          alert("Collected enough gems! Move on to level 2 - the secret lab...")
-        }
+      if (health>100) {
+      health=100;
+    }
+    
+    gemcollected.play();
+    gemId=gemId+1;
+    document.body.style.filter = "brightness(10)";
+    setTimeout(() => document.body.style.filter = "", 150);
+    boxes[gempos].classList.remove("gem");
+    disappear=1;
+    numscore=numscore+1;
+    console.log(numscore);
+    score.textContent="Score: "+numscore;
+    if (numscore==15) {
+      alert("Collected enough gems! Move on to level 2 - the secret lab...")
+    }
+      }
+      
     }
   }, 4000);
 }
@@ -379,7 +392,7 @@ boxes[609].classList.add("characterback");
 boxes[649].classList.add("characterback");
 boxes[569].classList.add("characterback");
 
-
+function startGame() {
 setInterval(() => {
   if (health > 0) {
     health = health - 10;
@@ -389,18 +402,24 @@ setInterval(() => {
     health=100;
   }
 }, 1000);
-let gem=generateGems();
+gem=generateGems();
 //makes the moving obstacle every 100 milliseconds
 setInterval(attachCharacterToBack,50);
 movingGame=setInterval(movingObstacles,100);
+}
 
 //detects when keys are pressed to shoot or jump
 document.addEventListener("keydown", e => {
-  if (e.key === " ") {
+  if (e.key==="Enter") {
+    document.getElementById("gamestart").style.display = "none";
+    gameStart=1;
+    startGame();
+  }
+  else if (e.key === " " && gameStart==1) {
     bgmusic.play()
     jump();
   } 
-  else if (e.key === "i") {
+  else if (e.key === "Shift"&& gameStart==1) {
     let bulletTop = topPos + 15;
     let bulletLeft = leftPos + 30;
     shoot();

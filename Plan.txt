@@ -13,13 +13,13 @@ Level 1:
 - Decisions in story?
 
 TO DO LIST:
-- collision
-- add floating cubes
-- add gems
-- add sound effects
 - add storyline?
-- add level screen
-- robots with bullets
+- add intro/ space to start
+- delayed start
+- some kind of end for each level
+- fix portal?
+- add artwork for each level
+- fix gemId bit
 
 Level 1:
 space
