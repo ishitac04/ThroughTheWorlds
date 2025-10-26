@@ -16,6 +16,7 @@ let gemcollected=document.getElementById("sparkle");
 const score=document.getElementById("score");
 let numscore=0;
 let gemId = 0;
+let startPortal=658;
 
 function generateGrid() {
   //creates the main grid for the game
@@ -32,6 +33,20 @@ function generateFloor() {
     for (i=680; i<800; i++) {
         boxes[i].classList.add("floor")
     }
+}
+
+function generatePortal(i) {
+  boxes[i].classList.add("floor");
+  boxes[i-40].classList.add("floor");
+  boxes[i-80].classList.add("floor");
+  boxes[i-120].classList.add("floor");
+}
+
+function erasePortal(i) {
+  boxes[i].classList.remove("floor");
+  boxes[i-40].classList.remove("floor");
+  boxes[i-80].classList.remove("floor");
+  boxes[i-120].classList.remove("floor");
 }
 
 function checkCollision() {
@@ -58,9 +73,12 @@ function checkCollision() {
     } else if (
       boxes[posNow].classList.contains("gem") ||
       boxes[posNow + 40].classList.contains("gem") ||
-      boxes[posNow - 40].classList.contains("gem")
+      boxes[posNow - 40].classList.contains("gem") ||
+      boxes[posNow - 80].classList.contains("gem")
     ) { 
         gemcollected.play();
+        document.body.style.filter = "brightness(10)";
+        setTimeout(() => document.body.style.filter = "", 150);
         boxes[gempos].classList.remove("gem");
         disappear=1;
         numscore=numscore+1;
@@ -143,6 +161,7 @@ function loseLife() {
         heart.classList.add("lost")
         lives--;
         lostlife.play();
+        screenShake();
         eraseObstacle(blockposition);
         eraseObstacle2(blockposition2);
         blockposition=678;
@@ -158,6 +177,7 @@ function loseLife() {
       heart.classList.add("lost")
       lives--;
       lostlife.play();
+      screenShake();
     }
 }
 
@@ -201,6 +221,12 @@ function eraseObstacle2(i) {
   boxes[i-40].classList.remove("floor");
   boxes[i+1].classList.remove("floor");
   boxes[i-39].classList.remove("floor");
+}
+
+function screenShake() {
+  const grid = document.getElementById("border");
+  grid.style.animation = "shake 0.3s";
+  grid.addEventListener("animationend", () => grid.style.animation = "");
 }
 
 function eraseGem(i) {
