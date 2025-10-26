@@ -20,3 +20,21 @@ TO DO LIST:
 - add storyline?
 - add level screen
 - robots with bullets and health bar
+
+Level 1:
+space
+fights robots
+collects space stones idk?
+
+Level 2:
+lab with portal she runs away from 
+fights laser rays
+collects keys to unlock doors
+
+Level 2.5: random mid level where she has to choose her path to return home
+
+Level 3: creepy forest
+
+Level 4: alien planet
+
+Level 5: underwater/ snowy area

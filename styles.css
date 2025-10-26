@@ -191,3 +191,15 @@ body {
     z-index: 40;
     display: none;
 }
+
+#menu {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background-image: url("menu.png");
+    background-size: cover;
+    top: 460px;
+    left: 30px;
+    z-index: 40;
+    display: none;
+}

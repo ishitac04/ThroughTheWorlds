@@ -66,6 +66,9 @@ function checkCollision() {
         numscore=numscore+1;
         console.log(numscore);
         score.textContent="Score: "+numscore;
+        if (numscore==15) {
+          alert("Collected enough gems! Move on to level 2 - the secret lab...")
+        }
     }
   }, 4000);
 }
@@ -148,6 +151,7 @@ function loseLife() {
       clearInterval(movingGame);
       document.getElementById("gameover").style.display = "block";
       document.getElementById("restart").style.display = "block";
+      document.getElementById("menu").style.display = "block";
       document.getElementById("character").style.display = "none";
       bgmusic.pause()
       const heart = document.getElementById(`heart${lives}`);
