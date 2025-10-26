@@ -20,7 +20,6 @@ TO DO LIST:
 - add storyline?
 - add level screen
 - robots with bullets
-- energy bar?
 
 Level 1:
 space

@@ -20,6 +20,9 @@ let startPortal=658;
 let health = 100;
 const healthbar = document.getElementById("healthbar");
 let bulletposition=608;
+let hit=0;
+let shouldrobot=0;
+const robotpieces = ["robot1", "robot2", "robot3", "robot4", "robot5", "robot6", "robot7", "robot8", "robot9"];
 
 function generateGrid() {
   //creates the main grid for the game
@@ -63,6 +66,17 @@ function checkCollision() {
     boxes[posNow].classList.add("characterback");
     boxes[posNow + 40].classList.add("characterback");
     boxes[posNow - 40].classList.add("characterback");
+
+    for (n=0; n<robotpieces.length; n++) {
+      if (boxes[posNow].classList.contains(robotpieces[n]) ||
+      boxes[posNow + 40].classList.contains(robotpieces[n]) ||
+      boxes[posNow - 40].classList.contains(robotpieces[n])) {
+        loseLife();
+        numscore=0;
+        console.log(numscore);
+        score.textContent="Score: "+numscore;
+      }
+    }
 
     if (
       boxes[posNow].classList.contains("floor") ||
@@ -123,7 +137,6 @@ function attachCharacterToBack() {
   character.style.left = left + "px";
 }
 
-
 function jump() {
   //makes the character jump upwards, waits and then falls back down
   let jumpUp = true;
@@ -155,18 +168,40 @@ function jump() {
 }
 
 function shoot() {
-    const bulletinterval = setInterval(() => {
-    boxes[bulletposition].classList.remove("bullet");
-    bulletposition += 1;
-    if (bulletposition%40==0 || boxes[bulletposition].classList.contains("floor")) {
-      clearInterval(bulletinterval);
-      bulletposition=575;
+  shot.play()
+  const charBoxes = document.querySelectorAll(".characterback");
+  if (charBoxes.length === 0);
+  const centerBox = charBoxes[1];
+
+  let bulletPos = Array.from(boxes).indexOf(centerBox) + 1;
+  boxes[bulletPos].classList.add("bullet");
+
+  const bulletInterval = setInterval(() => {
+    boxes[bulletPos].classList.remove("bullet");
+    bulletPos += 1;
+
+    if (bulletPos%40==0 || boxes[bulletPos].classList.contains("floor") || hit==1) {
+      hit=0;
+      clearInterval(bulletInterval);
       return;
-    }
-    boxes[bulletposition].classList.add("bullet");
-    }, 100);
+    } else if (boxes[bulletPos].classList.contains("robot1") || 
+              boxes[bulletPos].classList.contains("robot2") || 
+              boxes[bulletPos].classList.contains("robot3") || 
+              boxes[bulletPos].classList.contains("robot4") || 
+              boxes[bulletPos].classList.contains("robot5") || 
+              boxes[bulletPos].classList.contains("robot6") || 
+              boxes[bulletPos].classList.contains("robot7") ||
+              boxes[bulletPos].classList.contains("robot8") || 
+              boxes[bulletPos].classList.contains("robot9")) {
+                eraseRobot(robotposition);
+                shouldrobot=1;
+                robotposition=40;
+                hit=1
+              }
+
+    boxes[bulletPos].classList.add("bullet");
+  }, 80);
 }
-  
 
 function loseLife() {
     if (lives > 1) {
@@ -178,6 +213,7 @@ function loseLife() {
         screenShake();
         eraseObstacle(blockposition);
         eraseObstacle2(blockposition2);
+        eraseRobot(robotposition);
         blockposition=678;
         blockposition2=473;
     } else {
@@ -248,8 +284,8 @@ function eraseGem(i) {
 }
 
 function createRobot(i) {
+  if (shouldrobot==0) {
   boxes[i-39].classList.add("robot1");
-  boxes[i-1].classList.add("floor")
   boxes[i+1].classList.add("robot2");
   boxes[i+41].classList.add("robot3");
   boxes[i-38].classList.add("robot4");
@@ -258,11 +294,11 @@ function createRobot(i) {
   boxes[i-37].classList.add("robot7");
   boxes[i+3].classList.add("robot8");
   boxes[i+43].classList.add("robot9");
+  }
 }
 
 function eraseRobot(i) {
   boxes[i-39].classList.remove("robot1");
-  boxes[i-1].classList.remove("floor")
   boxes[i+1].classList.remove("robot2");
   boxes[i+41].classList.remove("robot3");
   boxes[i-38].classList.remove("robot4");
@@ -278,7 +314,9 @@ function movingObstacles() {
   eraseGem(gem);
   eraseObstacle(blockposition);
   eraseObstacle2(blockposition2);
-  eraseRobot(blockposition);
+  robotposition=blockposition-122;
+  createRobot(robotposition);
+  eraseRobot(robotposition);
   gem=gem-1;
   blockposition=blockposition-1;
   blockposition2=blockposition2-1;
@@ -287,6 +325,7 @@ function movingObstacles() {
   if (blockposition%40==0) {
     createObstacle(blockposition);
     eraseObstacle(blockposition);
+    shouldrobot=0;
     blockposition=678;
   }
   if (blockposition2%40==0) {
@@ -306,6 +345,8 @@ function movingObstacles() {
   createObstacle(blockposition);
   createObstacle2(blockposition2);
   createGem(gem);
+  robotposition=blockposition-122;
+  createRobot(robotposition);
   checkCollision();
 }
 
@@ -360,7 +401,7 @@ document.addEventListener("keydown", e => {
     jump();
   } 
   else if (e.key === "i") {
-    let bulletTop = topPos + 15; // tweak for vertical alignment
+    let bulletTop = topPos + 15;
     let bulletLeft = leftPos + 30;
     shoot();
   }

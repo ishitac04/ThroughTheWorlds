@@ -75,7 +75,6 @@ body {
     background-size: 100%;
 }
 
-#robot {
 .robot1 {
     background-image: url("00.png");
     background-size: cover;
@@ -112,7 +111,7 @@ body {
     background-image: url("22.png");
     background-size: cover;
 }
-}
+
 #lives {
     position: absolute;
     top: 10px;
