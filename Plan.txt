@@ -13,15 +13,13 @@ Level 1:
 - Decisions in story?
 
 TO DO LIST:
-- add done animation
 - add artwork for each level
 - add crossroads descriptions
 - fix menu for 3 levels instead of 6
-- 
 
 images needed:
 - obstacles for each level
 - each door exposition
 - levels for menu
 
-SUBMIT TOMORROW - 26/10/2025
+SUBMIT TODAY - 26/10/2025
