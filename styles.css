@@ -240,3 +240,21 @@ body {
     background-image: url("bullet.webp");
     background-size: 100%;
 }
+
+#loadingscreen {
+    position: absolute;
+    display: flex;
+    width: 1200px;
+    height: 550px;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    background-size: 10%;
+    border: 5px solid #ffffff;
+    background-size: cover;
+    border-radius: 30px;
+    top: 20;
+    left: 0px;
+    z-index: 30;
+    display: block;
+}

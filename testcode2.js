@@ -25,7 +25,7 @@ let shouldrobot=0;
 const robotpieces = ["robot1", "robot2", "robot3", "robot4", "robot5", "robot6", "robot7", "robot8", "robot9"];
 let gameStart=0;
 let gemsCollected=[];
-
+let gempos;
 
 function generateGrid() {
   //creates the main grid for the game
@@ -95,36 +95,33 @@ function checkCollision() {
       boxes[posNow + 40].classList.contains("gem") ||
       boxes[posNow - 40].classList.contains("gem") ||
       boxes[posNow - 80].classList.contains("gem")
-    ) { 
-
+    ) {
       if (!gemsCollected.includes(gemId)) {
         gemsCollected.push(gemId);
-        health=health+20;
-      if (health>100) {
-      health=100;
+        health = Math.min(100, health + 20);
+        gemcollected.play();
+        document.body.style.filter = "brightness(10)";
+        setTimeout(() => document.body.style.filter = "", 150);
+    
+        boxes[gempos].classList.remove("gem");
+        disappear = 1;
+        numscore++;
+        score.textContent = "Score: " + numscore;
+    
+        if (numscore === 15) {
+          alert("Collected enough gems! Move on to level 2 - the secret lab...");
+        }
+      }
     }
     
-    gemcollected.play();
-    gemId=gemId+1;
-    document.body.style.filter = "brightness(10)";
-    setTimeout(() => document.body.style.filter = "", 150);
-    boxes[gempos].classList.remove("gem");
-    disappear=1;
-    numscore=numscore+1;
-    console.log(numscore);
-    score.textContent="Score: "+numscore;
-    if (numscore==15) {
-      alert("Collected enough gems! Move on to level 2 - the secret lab...")
-    }
-      }
-      
-    }
   }, 4000);
 }
 
 function generateGems() {
-  gemId=gemId+1;
   disappear=0;
+  gemId=gemId+1;
+  console.log(gemId);
+  console.log(gemsCollected)
   a=Math.floor(Math.random()*5);
   gempos=680-(a*40);
   while (boxes[gempos].classList.contains("floor") || boxes[gempos-1].classList.contains("floor") || boxes[gempos+1].classList.contains("floor")) {
@@ -408,12 +405,19 @@ setInterval(attachCharacterToBack,50);
 movingGame=setInterval(movingObstacles,100);
 }
 
+function loadingscreen() {
+  health=110;
+  document.getElementById("loadingscreen").style.display = "none";
+}
+
 //detects when keys are pressed to shoot or jump
 document.addEventListener("keydown", e => {
   if (e.key==="Enter") {
     document.getElementById("gamestart").style.display = "none";
+    bgmusic.play();
     gameStart=1;
     startGame();
+    setTimeout(loadingscreen,4000)
   }
   else if (e.key === " " && gameStart==1) {
     bgmusic.play()
