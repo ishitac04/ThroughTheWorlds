@@ -13,14 +13,21 @@ Level 1:
 - Decisions in story?
 
 TO DO LIST:
-- add storyline?
-- delayed start
-- some kind of end for each level
-- fix portal?
+- add done animation
 - add artwork for each level
-- fix gemId bit
+
+images needed:
+- pro tip thing
+- next button
+- level names
+- background for each level
+- finished level text for each level
+- doors
+- each door exposition 
+
 
 SUBMIT TOMORROW - 26/10/2025
+
 
 Level 1:
 space

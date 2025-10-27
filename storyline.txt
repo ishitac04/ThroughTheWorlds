@@ -1,0 +1,14 @@
+End of level 1: Lost in Space
+Well done! You helped Maia collect enough energy gems to build a portal back to Earth. Press the next button to move on to Level 2: The Secret Lab
+
+Level 2: the Secret Lab
+The portal worked! You're now in the secret lab - escape quick before they catch you! Collect 8 vials of acid to burn through the lab doors, but be careful - the robots are still after you!
+
+End of level 2: the Secret Lab
+You made it out! But run quick before they follow you... 
+
+Level 3: the Menacing Forest
+Collect the keys to unlock the doors to city. You need 9 keys before you can escape.
+
+End of Level 3: Crossroads
+You have made it to the end - but choose wisely; the wrong door could send you back...

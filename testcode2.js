@@ -26,6 +26,7 @@ const robotpieces = ["robot1", "robot2", "robot3", "robot4", "robot5", "robot6",
 let gameStart=0;
 let gemsCollected=[];
 let gempos;
+let startdecreasing=0;
 
 function generateGrid() {
   //creates the main grid for the game
@@ -94,7 +95,9 @@ function checkCollision() {
       boxes[posNow].classList.contains("gem") ||
       boxes[posNow + 40].classList.contains("gem") ||
       boxes[posNow - 40].classList.contains("gem") ||
-      boxes[posNow - 80].classList.contains("gem")
+      boxes[posNow - 80].classList.contains("gem") ||
+      boxes[posNow + 1].classList.contains("gem") ||
+      boxes[posNow - 1].classList.contains("gem")
     ) {
       if (!gemsCollected.includes(gemId)) {
         gemsCollected.push(gemId);
@@ -108,8 +111,9 @@ function checkCollision() {
         numscore++;
         score.textContent = "Score: " + numscore;
     
-        if (numscore === 15) {
-          alert("Collected enough gems! Move on to level 2 - the secret lab...");
+        if (numscore === 5) {
+          characteranimation();
+          //make cool text appear [---];
         }
       }
     }
@@ -391,10 +395,10 @@ boxes[569].classList.add("characterback");
 
 function startGame() {
 setInterval(() => {
-  if (health > 0) {
-    health = health - 10;
+  if (health > 0 && startdecreasing==1) {
+    health = health - 5;
     healthbar.style.height = health + "%";
-  } else {
+  } else if (health <= 0) {
     loseLife();
     health=100;
   }
@@ -406,8 +410,9 @@ movingGame=setInterval(movingObstacles,100);
 }
 
 function loadingscreen() {
-  health=110;
+  health=100;
   document.getElementById("loadingscreen").style.display = "none";
+  startdecreasing=1;
 }
 
 //detects when keys are pressed to shoot or jump
