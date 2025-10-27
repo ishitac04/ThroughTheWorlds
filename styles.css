@@ -204,6 +204,18 @@ body {
     display: none;
 }
 
+#next {
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    background-image: url("restart.png");
+    background-size: cover;
+    top: 450px;
+    right: 10px;
+    z-index: 40;
+    display: none;
+}
+
 #menu {
     position: absolute;
     width: 150px;

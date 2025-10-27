@@ -1,19 +1,9 @@
 body {
     margin: 0;
-    background-color: rgb(136, 136, 245);
+    background-color: rgb(0, 0, 0);
     display: flex;
     flex-direction: column;
     height: 100vh;
-}
-
-header {
-    text-align: center;
-    padding: 10px;
-}
-
-footer {
-    text-align: center;
-    padding: 10px;
 }
 
 main {
@@ -26,49 +16,49 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 595px;
+    width: 456px;
 }
 
-.description1 {
+.description {
     position: absolute;
-    width: 1100px;
-    height: 450px;
-    background-color: rgb(13, 76, 97);
+    width: 1000px;
+    height: 200px;
+    background-color: rgb(0, 0, 0);
     background-size: cover;
     border: 5px solid #ffffff;
     background-size: cover;
     border-radius: 30px;
-    top: 60px;
-    left: 135px;
+    top: 160px;
+    left: 180px;
     z-index: 40;
     display: block;
 }
 
-.description2 {
+.exposition {
     position: absolute;
-    width: 1100px;
-    height: 450px;
-    background-color: blue;
+    width: 800px;
+    height: 80px;
+    background-image: url("Crossroadsfooter.png");
     background-size: cover;
-    border: 5px solid #ffffff;
-    background-size: cover;
-    border-radius: 30px;
-    top: 60px;
-    left: 135px;
+    border-radius: 10px;
+    border: 0px solid #570b0b;
+    top: 520px;
+    left: 250px;
     z-index: 40;
     display: block;
 }
 
-.description3 {
+.title {
     position: absolute;
-    width: 1100px;
-    height: 450px;
-    background-color: aqua;
+    width: 560px;
+    height: 60px;
+    background-image: url("crossroads.png");
+    background-size: 50px;
     background-size: cover;
-    border: 5px solid #ffffff;
-    background-size: cover;
-    border-radius: 30px;
-    top: 60px;
-    left: 135px;
+    border-radius: 10px;
+    top: 0px;
+    left: 400px;
     z-index: 40;
     display: block;
 }

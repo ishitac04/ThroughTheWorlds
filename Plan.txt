@@ -15,34 +15,13 @@ Level 1:
 TO DO LIST:
 - add done animation
 - add artwork for each level
+- add crossroads descriptions
 
 images needed:
-- pro tip thing
 - next button
-- level names
 - background for each level
-- finished level text for each level
-- doors
-- each door exposition 
+- obstacles for each level
+- each door exposition
 
 
 SUBMIT TOMORROW - 26/10/2025
-
-
-Level 1:
-space
-fights robots
-collects space stones idk?
-
-Level 2:
-lab with portal she runs away from 
-fights laser rays
-collects keys to unlock doors
-
-Level 2.5: random mid level where she has to choose her path to return home
-
-Level 3: creepy forest
-
-Level 4: alien planet
-
-Level 5: underwater/ snowy area
