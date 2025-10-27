@@ -1,5 +1,5 @@
 body {
-    background-image: url("space.gif") ;
+    background-image: url("lab.gif") ;
     background-size: 100%;
     display: flex;
     flex-direction: center;
@@ -43,7 +43,7 @@ body {
 }
 
 .floor {
-    background-image: url("metal.webp");
+    background-image: url("metalbrick.png");
     background-size: 100%;
     border: 5px solid #000000
 }
@@ -71,7 +71,6 @@ body {
 }
 
 .characterback {
-    background-color: #000000;
     background-size: 100%;
 }
 
@@ -138,7 +137,6 @@ body {
     position: absolute;
     width: 1200px;
     height: 550px;
-    background-image: url("cover.png");
     background-size: 100%;
     border: 5px solid #ffffff;
     background-size: cover;
@@ -150,7 +148,7 @@ body {
 }
 
 .gem {
-    background-image: url("gem.png");
+    background-image: url("acid.png");
     background-size: 100%;
 }
 

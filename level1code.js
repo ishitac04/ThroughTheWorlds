@@ -111,11 +111,12 @@ function checkCollision() {
         numscore++;
         score.textContent = "Score: " + numscore;
     
-        if (numscore === 5) {
-          //characteranimation();
+        if (numscore === 7) {
           clearInterval(movingGame);
+          startdecreasing=0;
           document.getElementById("next").style.display = "block";
-          //make cool text appear [---];
+          document.getElementById("endscreen").style.display = "block";
+          document.getElementById("character").style.display = "none";
           
         }
       }

@@ -16,12 +16,12 @@ TO DO LIST:
 - add done animation
 - add artwork for each level
 - add crossroads descriptions
+- fix menu for 3 levels instead of 6
+- 
 
 images needed:
-- next button
-- background for each level
 - obstacles for each level
 - each door exposition
-
+- levels for menu
 
 SUBMIT TOMORROW - 26/10/2025
