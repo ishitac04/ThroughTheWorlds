@@ -16,6 +16,7 @@ TO DO LIST:
 - add artwork for each level
 - add crossroads descriptions
 - fix menu for 3 levels instead of 6
+- level3 end
 
 images needed:
 - obstacles for each level
