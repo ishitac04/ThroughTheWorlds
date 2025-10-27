@@ -111,7 +111,7 @@ function checkCollision() {
         numscore++;
         score.textContent = "Score: " + numscore;
     
-        if (numscore === 8) {
+        if (numscore === 3) {
           clearInterval(movingGame);
           startdecreasing=0;
           document.getElementById("next").style.display = "block";

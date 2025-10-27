@@ -13,14 +13,16 @@ Level 1:
 - Decisions in story?
 
 TO DO LIST:
-- add artwork for each level
 - add crossroads descriptions
-- fix menu for 3 levels instead of 6
 - level3 end
 
+Level 3 end:
+You've made it through the levels and retrieved the three keys! But will you pick the right door to get Maia home? Press next to find out...
+
+Door 1:
+Oh no! This door reopened the portal to the lab, and Maia has been dragged in! Clear level 2 and 3 again to get back here :(
+
 images needed:
-- obstacles for each level
 - each door exposition
-- levels for menu
 
 SUBMIT TODAY - 26/10/2025
